@@ -43,20 +43,3 @@ try {
 } catch (error) {
     console.log('"C" no existe!');
 }
-
-let cars = ['a', 'b', 'c', 'd'];
-
-let i = 0;
-let len = cars.length;
-let text = "";
-
-for (;;) {
-    text += cars[i] + "-";
-    i++;
-
-    if (i >= len) {
-        break;
-    }
-}
-
-console.log(text);

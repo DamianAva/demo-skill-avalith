@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const userRouter = require('./routes/user');
 const studentRouter = require('./routes/student');
+const teacherRouter = require('./routes/teacher');
+const examRouter = require('./routes/exam');
 const app = express();
 const port = 3000;
 
@@ -60,6 +62,8 @@ app.use(function(req, res, next) {
 
 app.use('/user', userRouter);
 app.use('/student', studentRouter);
+app.use('/teacher', teacherRouter);
+app.use('/exam', examRouter);
 
 app.listen(port, function () {
     console.log(`Example app listening at http://localhost:${port}`);
