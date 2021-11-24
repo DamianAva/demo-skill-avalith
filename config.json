@@ -3,5 +3,12 @@
     "port": 3306,
     "user": "root",
     "password": "admin",
-    "database": "demo"
+    "database": "demo",
+    "email": {
+        "service": "Gmail",
+        "auth": {
+            "user": "xxxxx",
+            "pass": "xxxxx"
+        }
+    }
 }

@@ -67,6 +67,8 @@ router.post('/', async (req, res) => {
     try {
         const student = req.body;
 
+        console.log(student);
+
         const connection = await mysql.createConnection(dbSettings);
         const [results] = await connection.query(queries.addStudent, [student]);
 
@@ -87,6 +89,10 @@ router.delete('/:id(\\d+)', async (req, res) => {
         const [results] = await connection.query(queries.deleteStudent, [id]);
 
         console.log(results.affectedRows);
+
+        if (!results.affectedRows) {
+            return res.status(400).send('No se borro nada!');
+        }
 
         return res.send('Borrado con exito!');
     } catch (error) {

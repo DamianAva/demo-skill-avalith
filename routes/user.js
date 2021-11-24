@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const express = require('express');
 const mysql = require('mysql2/promise');
 const jwt = require('jsonwebtoken');
-const dbSettings = require('../config.json');
+const { email, ...dbSettings } = require('../config.json');
 const queries = require('../queries');
 
 const router = express.Router();
@@ -51,18 +51,23 @@ router.post('/login', async function (req, res) {
             return res.status(500).send('Internal Server Error.');
         }
 
-        return res.send(encoded);
+        res.cookie('token', encoded, { maxAge: 45000 });
+        return res.send({ token: encoded });
     });
 });
 
 router.get('/verify', function (req, res, next) {
     const token = req.headers.authorization;
+    const tokenCookie = req.cookies.token;
 
-    if (!token) {
+    console.log(req.cookies)
+
+    if (!token && !tokenCookie) {
         return res.status(401).send('No envio token');
     }
 
-    jwt.verify(token, secret, (error, decoded) => {
+    jwt.verify(token || tokenCookie, secret, (error, decoded) => {
+        console.log(error)
         if (error) {
             return res.status(401).send('Token invalido');
         }
